@@ -27,9 +27,11 @@ def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     :param month: Month to get the cases for as an integer indexed from 1
     :return: Number of cases on a given date as an integer
     """
+    date="{}/{}/{}".format(month,day,year)
+    liczba = confirmed_cases.loc[confirmed_cases["Country/Region"]=="Poland"][date].values[0]
+    print(liczba)
+    return (liczba)
     
-    # Your code goes here (remove pass)
-    pass
 
 
 def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
@@ -47,10 +49,12 @@ def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
     :param year: Month to get the countries for as an integer indexed from 1
     :return: A list of strings with the names of the coutires
     """
-
-    # Your code goes here (remove pass)
-    pass
-
+    date="{}/{}/{}".format(month,day,year)
+    country=["","","","",""]
+    for i in range (5):
+        country[i]=confirmed_cases[["Country/Region", date]].sort_values(by=date).tail(5).values[i][0]
+    print (country)
+    return (country)
 # Function name is wrong, read the pydoc
 def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     """
@@ -70,4 +74,10 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     """
     
     # Your code goes here (remove pass)
-    pass
+    k=0  
+    kolumna=confirmed_cases.columns.get_loc(date)
+    for i in range (462):
+        if confirmed_cases.loc[i][kolumna]==confirmed_cases.loc[i][kolumna-1]:
+            k=k+1
+    print (k)
+    return (k)
